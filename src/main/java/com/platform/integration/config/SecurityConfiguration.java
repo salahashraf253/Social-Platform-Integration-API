@@ -1,5 +1,7 @@
 package com.platform.integration.config;
 
+import com.platform.integration.OAuth2.CustomOAuth2UserService;
+import com.platform.integration.OAuth2.OAuth2LoginSuccessHandler;
 import com.platform.integration.security.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -18,22 +20,31 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
+    private final CustomOAuth2UserService oAuth2UserService;
 
-    private final String[] whiteListEndPoints = {"/api/v1/auth/**"};
+    private final OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
+
+    private final String[] whiteListEndPoints = {"/api/v1/auth/**","/oauth/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
+                .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers(whiteListEndPoints)
-                .permitAll()
-                .anyRequest()
-                .authenticated()
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+                .and()
+                .oauth2Login()
+                    .userInfoEndpoint()
+                    .userService(oAuth2UserService)
+                    .and()
+                    .successHandler(oAuth2LoginSuccessHandler)
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
