@@ -14,14 +14,14 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public void processOAuthPostGoogleLogin(String name, String email) {
+    public void processOAuthPostLogin(String name, String email, Provider provider) {
         Optional<User> existUser = userRepo.findByEmail(email);
 
         if (existUser.isEmpty()) {
             var user = User.builder()
                     .email(email)
                     .firstName(name)
-                    .provider(Provider.GOOGLE)
+                    .provider(provider)
                     .role(Role.USER)
                     .build();
 
