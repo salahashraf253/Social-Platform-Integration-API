@@ -29,5 +29,11 @@ spring:
             scope:
               - email
               - public_profile
+          github:
+            client-id: YOUR_GITHUB_CLIENT_ID
+            client-secret: YOUR_GITHUB_CLIENT_SECRET
+            scope:
+              - user:email
+              - read:user
 server:
   port: 8080
