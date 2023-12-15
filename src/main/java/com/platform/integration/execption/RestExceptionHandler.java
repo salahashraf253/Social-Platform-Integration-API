@@ -49,7 +49,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     @ExceptionHandler({AuthenticationException.class})
-    public ResponseEntity<?> handleAuthenticationException( ) {
+    public ResponseEntity<?> handleAuthenticationException() {
         return new ResponseEntity<>(
                 UnAuthorizedResponse.builder().message("Invalid user credentials").build(),
                 HttpStatus.UNAUTHORIZED);
