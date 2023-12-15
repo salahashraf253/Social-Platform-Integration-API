@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 public enum Provider {
     LOCAL("local"),
     GOOGLE("google"),
-    FACEBOOK("facebook");
+    FACEBOOK("facebook"),
+    GITHUB("github");
 
     private final String value;
 
