@@ -2,7 +2,8 @@
 
 ## Overview
 
-This Spring Boot application serves as a RESTful API for user authentication, providing validated endpoints for user login and registration. Additionally, it includes social media login functionality for GitHub, Facebook, and Google.
+This Spring Boot application serves as a RESTful API for user authentication, offering validated endpoints for login and registration. It also supports third-party login integrations via GitHub, Facebook, and Google.
+
 
 ## Table of Contents
 
